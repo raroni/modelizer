@@ -1,3 +1,8 @@
+require "rubygems"
+require "bundler/setup"
+
+Bundler.require :default
+
 desc 'Create bundled files for distribution.'
 task :bundle do
   version = File.read('VERSION').strip
@@ -18,6 +23,10 @@ task :bundle do
   
   File.open("dist/modelizer-#{version}.js", 'w') do |f|
     f.write string
+  end
+  
+  File.open("dist/modelizer-#{version}-min.js", 'w') do |f|
+    f.write Closure::Compiler.new.compile(string)
   end
   
 end

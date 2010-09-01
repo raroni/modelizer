@@ -21,10 +21,10 @@ var Observable = {
 			}
 		}
 	},
-	argumentsToArray: function(arguments, start_from) {
+	argumentsToArray: function(args, start_from) {
 		var array = [];
-		for(var i=(start_from || 0); arguments.length>i; i++) {
-			array.push(arguments[i]);
+		for(var i=(start_from || 0); args.length>i; i++) {
+			array.push(args[i]);
 		}
 		return array;
 	}
