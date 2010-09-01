@@ -1,5 +1,5 @@
-Model.Associations = (function() {
-  var original_set = Model.Base.set;
+Modelizer.Associations = (function() {
+  var original_set = Modelizer.Base.set;
 
   function initialize(klass) {
     klass.prototype.set = set;
@@ -39,7 +39,7 @@ Model.Associations = (function() {
       return this._associations;
     },
     belongsTo: function(association_name) {
-      this.addAssociation(new Model.Associations.BelongsTo(this, association_name));
+      this.addAssociation(new Modelizer.Associations.BelongsTo(this, association_name));
       return this;
     },
     hasMany: function() {
@@ -47,7 +47,7 @@ Model.Associations = (function() {
       var args = Array.prototype.slice.call(arguments);
       var options = $.isPlainObject(args[args.length-1]) ? args.pop() : null;
       $.each(args, function(n, an) {
-        self.addAssociation(new Model.Associations.HasMany(self, an, options));
+        self.addAssociation(new Modelizer.Associations.HasMany(self, an, options));
       });
       return this;
     }

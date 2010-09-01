@@ -1,4 +1,4 @@
-Model.Associations.BelongsTo = function(klass, association_name) {
+Modelizer.Associations.BelongsTo = function(klass, association_name) {
   function childClass() {
     return window[association_name.camelize()];
   }

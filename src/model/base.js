@@ -1,4 +1,4 @@
-Model.Base = {
+Modelizer.Base = {
   initiate: function(attributes) {
     this.updateAttributes(attributes);
   },

@@ -1,4 +1,4 @@
-Model.Collection = {
+Modelizer.Collection = {
 	insert: function(instance) {
 	  if(instance.get('id') && this.exists(instance.get('id'))) {
 	    var existing_instance = this.find(instance.get('id'));
@@ -79,4 +79,4 @@ Model.Collection = {
 		return match;
 	}
 };
-$.extend(Model.Collection, Observable);
+$.extend(Modelizer.Collection, Observable);

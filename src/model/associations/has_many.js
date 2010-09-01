@@ -1,4 +1,4 @@
-Model.Associations.HasMany = function(klass, association_name, options) {
+Modelizer.Associations.HasMany = function(klass, association_name, options) {
   options = options || {};
   
   function childClass() {
