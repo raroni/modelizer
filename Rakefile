@@ -8,7 +8,6 @@ task :bundle do
   version = File.read('VERSION').strip
   
   files = [
-    'lib/observable.js',
     'model.js',
     'model/base.js',
     'model/collection.js',
