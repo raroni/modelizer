@@ -62,6 +62,15 @@ Modelizer.Collection = {
 		});
 		return instance;
 	},
+	last: function(conditions) {
+		var elms;
+		if(conditions == null) {
+			elms = this.all();
+		} else {
+			elms = this.where(conditions);
+		}
+		return elms[elms.length - 1];
+	},
 	where: function(conditions) {
 		var self = this;
 		return $.grep(this.all(), function(i) {
