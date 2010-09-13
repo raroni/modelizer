@@ -51,6 +51,6 @@ Modelizer.Base = {
 		return this.constructor;
 	},
 	remove: function() {
-	  this.klass().remove(this.get('id'));
+	  this.klass().remove(this);
 	}
 };

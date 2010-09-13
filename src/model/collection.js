@@ -27,8 +27,7 @@ Modelizer.Collection = {
 			self.create(v);
 		});
 	},
-	remove: function(id) {
-		var instance = this.find(id);
+	remove: function(instance) {
 		var index = this.all().indexOf(instance);
 		this.all().splice(index, 1);
 		this.notify('remove', instance);
