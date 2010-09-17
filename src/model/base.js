@@ -49,5 +49,8 @@ Modelizer.Base = {
 	},
 	klass: function() {
 		return this.constructor;
+	},
+	remove: function() {
+	  this.klass().remove(this);
 	}
 };
