@@ -28,7 +28,7 @@ Modelizer.Collection = {
 		});
 	},
 	remove: function(instance) {
-		var index = this.all().indexOf(instance);
+		var index = $.inArray(instance, this.all());
 		this.all().splice(index, 1);
 		this.notify('remove', instance);
 	},
