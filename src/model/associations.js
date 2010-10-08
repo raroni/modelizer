@@ -1,20 +1,20 @@
 Modelizer.Associations = (function() {
-  var original_set = Modelizer.Base.set;
+  var original_set = Modelizer.Base.setAttribute;
 
   function initialize(klass) {
-    klass.prototype.set = set;
+    klass.prototype.setAttribute = setAttribute;
   }
   
-  function set() {
+  function setAttribute() {
     var association = this.klass().findAssociation(arguments[0]);
     if(association) {
       if(arguments[1]) {
         association.build(arguments[1]);
       }
     } else {
-      this.set = original_set;
-      this.set.apply(this, arguments);
-      this.set = set;
+      this.setAttribute = original_set;
+      this.setAttribute.apply(this, arguments);
+      this.setAttribute = setAttribute;
     }
   }
   
