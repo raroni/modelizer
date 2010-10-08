@@ -12,6 +12,7 @@ task :bundle do
     'modelizer/base.js',
     'modelizer/collection.js',
     'modelizer/associations.js',
+    'modelizer/associations/base.js',
     'modelizer/associations/belongs_to.js',
     'modelizer/associations/has_many.js'
   ]
