@@ -4,7 +4,7 @@ describe('BelongsTo', function() {
     Modelizer('Song').belongsTo('user');
   });
   
-  it('should update an existing model if one with the same id is present', function() {
+  it('should attempt to update existing model before creating a new one', function() {
     new User({ id: 1, name: 'Rasmus' });
     new Song({
       id: 1,
@@ -18,11 +18,11 @@ describe('BelongsTo', function() {
     expect(User.first().get('name')).toEqual('John');
   });
   
-  it('should not affect associated model\'s id', function() {
+  it('should not affect existing associated model\'s id', function() {
     new User({ id: 1, name: 'Rasmus' });
     new Song({
       id: 1,
-      name: 'Blackbird',
+      title: 'Blackbird',
       user: {
         id: 1
       }
