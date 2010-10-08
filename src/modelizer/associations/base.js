@@ -1,5 +1,5 @@
 Modelizer.Associations.Base = {
-  build: function(attributes) {
+  apply: function(attributes) {
     var existing_instance;
     if(attributes.id) {
       existing_instance = this.childClass().find(attributes.id);
