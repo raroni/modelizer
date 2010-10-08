@@ -19,10 +19,8 @@ Modelizer.Associations.BelongsTo = function(klass, association_name) {
     }
     if(existing_instance) {
       attributes.id = null;
-      console.info(attributes);
       existing_instance.update(attributes);
     } else {
-      console.info('creater!!!');
       childClass().create(attributes);
     }
   }
