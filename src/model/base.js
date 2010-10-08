@@ -28,7 +28,11 @@ Modelizer.Base = {
 		}
 	},
 	changed: function(attribute) {
-		return this.changed_attributes && $.inArray(attribute, this.changed_attributes) != -1;
+		if(this.changed_attributes && $.inArray(attribute, this.changed_attributes) != -1) {
+		  return true;
+		} else {
+		  return false;
+		}
 	},
 	set: function(key, value) {
 	  this.setAttribute(key, value);
