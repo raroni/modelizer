@@ -30,6 +30,7 @@ Modelizer.Base = {
 		this.attributes = this.attributes || {};
 		this.attributes[key] = value;
 		if(!options.bulk_update) {
+	    this.changed_attributes = [key];
 			this.notifyUpdated();
 		}
 	},
