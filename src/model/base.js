@@ -4,16 +4,21 @@ Modelizer.Base = {
   },
   updateAttributes: function(hash) {
     var self = this;
-		self.changed_attributes = [];
 		$.each(hash, function(k, v) {
-		  if(v != self.get(k)) {
-			  self.changed_attributes.push(k);
-			}
 			self.setAttribute(k, v);
 		});
   },
 	update: function(attributes) {
+    var self = this;
+		self.changed_attributes = [];		
+		$.each(attributes, function(k, v) {
+  		if(v != self.get(k)) {
+  		  self.changed_attributes.push(k);
+  		}
+  	});
+  	
 		this.updateAttributes(attributes);
+		
 		this.notifyUpdated();
 	},
 	notifyUpdated: function() {
