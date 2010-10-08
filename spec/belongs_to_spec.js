@@ -18,4 +18,17 @@ describe('BelongsTo', function() {
     expect(User.first().get('name')).toEqual('John');
   });
   
+  it('should not affect associated model\'s id', function() {
+    new User({ id: 1, name: 'Rasmus' });
+    new Song({
+      id: 1,
+      name: 'Blackbird',
+      user: {
+        id: 1
+      }
+    });
+
+    expect(User.first().get('id')).toEqual(1);
+  });
+  
 });

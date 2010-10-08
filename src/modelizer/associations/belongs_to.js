@@ -18,7 +18,7 @@ Modelizer.Associations.BelongsTo = function(klass, association_name) {
       existing_instance = childClass().find(attributes.id);
     }
     if(existing_instance) {
-      attributes.id = null;
+      delete attributes.id;
       existing_instance.update(attributes);
     } else {
       childClass().create(attributes);
