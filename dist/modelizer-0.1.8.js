@@ -25,7 +25,7 @@ Modelizer.Base = {
 		  if(v != self.get(k)) {
 			  self.changed_attributes.push(k);
 			}
-			self.set(k, v, { bulk_update: true });
+			self.setAttribute(k, v);
 		});
   },
 	update: function(attributes) {
@@ -41,14 +41,14 @@ Modelizer.Base = {
 	changed: function(attribute) {
 		return this.changed_attributes && $.inArray(attribute, this.changed_attributes) != -1;
 	},
-	set: function(key, value, options) {
-	  options = options || {};
+	set: function(key, value) {
+	  this.setAttribute(key, value);
+    this.changed_attributes = [key];
+		this.notifyUpdated();
+	},
+	setAttribute: function(key, value) {
 		this.attributes = this.attributes || {};
 		this.attributes[key] = value;
-		if(!options.bulk_update) {
-	    this.changed_attributes = [key];
-			this.notifyUpdated();
-		}
 	},
 	get: function(key) {
 		if(this.attributes) {
