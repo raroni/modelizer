@@ -8,12 +8,12 @@ task :bundle do
   version = File.read('VERSION').strip
   
   files = [
-    'model.js',
-    'model/base.js',
-    'model/collection.js',
-    'model/associations.js',
-    'model/associations/belongs_to.js',
-    'model/associations/has_many.js'
+    'modelizer.js',
+    'modelizer/base.js',
+    'modelizer/collection.js',
+    'modelizer/associations.js',
+    'modelizer/associations/belongs_to.js',
+    'modelizer/associations/has_many.js'
   ]
   
   string = files.inject '' do |s, f|
