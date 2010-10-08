@@ -20,12 +20,16 @@ task :bundle do
     s << File.read("src/#{f}")
   end
   
-  File.open("dist/modelizer-#{version}.js", 'w') do |f|
-    f.write string
+  ["dist/modelizer-#{version}.js", "dist/modelizer.js"].each do |path|
+    File.open(path, 'w') do |f|
+      f.write string
+    end
   end
   
-  File.open("dist/modelizer-#{version}-min.js", 'w') do |f|
-    f.write Closure::Compiler.new.compile(string)
+  ["dist/modelizer-#{version}-min.js", "dist/modelizer-min.js"].each do |path|
+    File.open(path, 'w') do |f|
+      f.write Closure::Compiler.new.compile(string)
+    end
   end
   
 end
