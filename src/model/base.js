@@ -1,6 +1,18 @@
 Modelizer.Base = {
   initiate: function(attributes) {
     this.updateAttributes(attributes);
+    
+    var self = this;
+    this.resetChangedAttributes();
+    $.each(attributes, function(k) {
+      self.addChangedAttribute(k);
+    });
+  },
+  resetChangedAttributes: function() {
+    this.changed_attributes = [];
+  },
+  addChangedAttribute: function(key) {
+    this.changed_attributes.push(key);
   },
   updateAttributes: function(hash) {
     var self = this;
@@ -9,11 +21,12 @@ Modelizer.Base = {
 		});
   },
 	update: function(attributes) {
+    this.resetChangedAttributes();
+    
     var self = this;
-		self.changed_attributes = [];		
 		$.each(attributes, function(k, v) {
   		if(v != self.get(k)) {
-  		  self.changed_attributes.push(k);
+  		  self.addChangedAttribute(k);
   		}
   	});
   	
@@ -36,7 +49,10 @@ Modelizer.Base = {
 	},
 	set: function(key, value) {
 	  this.setAttribute(key, value);
-    this.changed_attributes = [key];
+	  
+    this.resetChangedAttributes();
+    this.addChangedAttribute(key);
+    
 		this.notifyUpdated();
 	},
 	setAttribute: function(key, value) {

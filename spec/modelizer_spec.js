@@ -30,5 +30,9 @@ describe('Modelizer', function() {
     user.update({ age: 24 });
     expect(user.changed('name')).toBeFalsy();
   });
+  
+  it('should mark instantiation attributes as changed', function() {
+    expect(user.changed('name')).toBeTruthy();
+  });
 
 });
