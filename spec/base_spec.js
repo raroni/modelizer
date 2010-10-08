@@ -1,9 +1,8 @@
 describe('Modelizer.Base', function() {
-  Modelizer('User');
-  
   var user, user_name = 'Rasmus';
   
   beforeEach(function() {
+    Modelizer('User');
     user = new User({ name: user_name });
   });
   

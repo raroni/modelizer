@@ -1,7 +1,7 @@
 var Modelizer = function(name, constructor) {
   var klass = function(attributes) {
     if(attributes.id && klass.exists(attributes.id)) {
-      throw('Cannot create two models with the same ID.');
+      throw('Cannot create two models with the same ID. (' + name + ', ' + attributes.id + ')');
     }
     
     this.initiate(attributes);

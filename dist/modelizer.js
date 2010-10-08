@@ -1,7 +1,7 @@
 var Modelizer = function(name, constructor) {
   var klass = function(attributes) {
     if(attributes.id && klass.exists(attributes.id)) {
-      throw('Cannot create two models with the same ID.');
+      throw('Cannot create two models with the same ID. (' + name + ', ' + attributes.id + ')');
     }
     
     this.initiate(attributes);
@@ -260,7 +260,18 @@ Modelizer.Associations.BelongsTo = function(klass, association_name) {
   }
   
   this.build = function(attributes) {
-    childClass().create(attributes);
+    var existing_instance;
+    if(attributes.id) {
+      existing_instance = childClass().find(attributes.id);
+    }
+    if(existing_instance) {
+      attributes.id = null;
+      console.info(attributes);
+      existing_instance.update(attributes);
+    } else {
+      console.info('creater!!!');
+      childClass().create(attributes);
+    }
   }
 };
 Modelizer.Associations.HasMany = function(klass, association_name, options) {
