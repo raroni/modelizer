@@ -9,7 +9,7 @@ Modelizer.Associations = (function() {
     var association = this.klass().findAssociation(arguments[0]);
     if(association) {
       if(arguments[1]) {
-        association.apply(arguments[1]);
+        association.createOrUpdate(arguments[1]);
       }
     } else {
       this.setAttribute = original_set;
