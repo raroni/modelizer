@@ -76,7 +76,11 @@ Modelizer.Collection = {
 			return self.match(i, conditions);
 		});
 	},
-	createOrUpdate: function(attributes) {
+	createOrUpdate: function(array_or_hash) {
+	  var method_ext = $.isArray(array_or_hash) ? 'Many' : 'One';
+	  this['createOrUpdate' + method_ext](array_or_hash);
+	},
+	createOrUpdateOne: function(attributes) {
     var existing_instance;
     if(attributes.id) {
       existing_instance = this.find(attributes.id);
@@ -85,8 +89,15 @@ Modelizer.Collection = {
       delete attributes.id;
       existing_instance.update(attributes);
     } else {
-      new this(attributes);
+      // new this(attributes);
+      this.create(attributes);
     }
+	},
+	createOrUpdateMany: function(array) {
+		var self = this;
+		$.each(array, function(i, v) {
+			self.createOrUpdate(v);
+		});
 	},
 	match: function(instance, conditions) {
 		var match = true;
