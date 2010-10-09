@@ -76,6 +76,18 @@ Modelizer.Collection = {
 			return self.match(i, conditions);
 		});
 	},
+	createOrUpdate: function(attributes) {
+    var existing_instance;
+    if(attributes.id) {
+      existing_instance = this.find(attributes.id);
+    }
+    if(existing_instance) {
+      delete attributes.id;
+      existing_instance.update(attributes);
+    } else {
+      new this(attributes);
+    }
+	},
 	match: function(instance, conditions) {
 		var match = true;
 		$.each(conditions, function(key, value) {
