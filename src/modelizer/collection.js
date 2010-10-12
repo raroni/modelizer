@@ -9,11 +9,17 @@ Modelizer.Collection = {
 		}
 	},
 	create: function(array_or_hash) {
-		if($.isArray(array_or_hash)) {
-			this.createFromArray(array_or_hash);
-		} else {
-      new this(array_or_hash);
-		}
+	  var method_ext = $.isArray(array_or_hash) ? 'Many' : 'One';
+	  this['create' + method_ext](array_or_hash);
+	},
+	createOne: function(hash) {
+	  new this(hash);
+	},
+	createMany: function(array) {
+		var self = this;
+		$.each(array, function(i, v) {
+			self.create(v);
+		});
 	},
   clear: function() {
   		while(this.first()) {
@@ -21,14 +27,8 @@ Modelizer.Collection = {
   		}
 		  this.notify('cleared');
   },
-	createFromArray: function(array) {
-		var self = this;
-		$.each(array, function(i, v) {
-			self.create(v);
-		});
-	},
 	remove: function(instance) {
-		var index = this.all().indexOf(instance);
+		var index = $.inArray(instance, this.all());
 		this.all().splice(index, 1);
 		this.notify('remove', instance);
 	},
@@ -74,6 +74,29 @@ Modelizer.Collection = {
 		var self = this;
 		return $.grep(this.all(), function(i) {
 			return self.match(i, conditions);
+		});
+	},
+	createOrUpdate: function(array_or_hash) {
+	  var method_ext = $.isArray(array_or_hash) ? 'Many' : 'One';
+	  this['createOrUpdate' + method_ext](array_or_hash);
+	},
+	createOrUpdateOne: function(attributes) {
+    var existing_instance;
+    if(attributes.id) {
+      existing_instance = this.find(attributes.id);
+    }
+    if(existing_instance) {
+      delete attributes.id;
+      existing_instance.update(attributes);
+    } else {
+      // new this(attributes);
+      this.create(attributes);
+    }
+	},
+	createOrUpdateMany: function(array) {
+		var self = this;
+		$.each(array, function(i, v) {
+			self.createOrUpdate(v);
 		});
 	},
 	match: function(instance, conditions) {

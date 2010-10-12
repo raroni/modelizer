@@ -1,19 +1,37 @@
 Modelizer.Base = {
   initiate: function(attributes) {
     this.updateAttributes(attributes);
+    
+    var self = this;
+    this.resetChangedAttributes();
+    $.each(attributes, function(k) {
+      self.addChangedAttribute(k);
+    });
+  },
+  resetChangedAttributes: function() {
+    this.changed_attributes = [];
+  },
+  addChangedAttribute: function(key) {
+    this.changed_attributes.push(key);
   },
   updateAttributes: function(hash) {
     var self = this;
-		self.changed_attributes = [];
 		$.each(hash, function(k, v) {
-		  if(v != self.get(k)) {
-			  self.changed_attributes.push(k);
-			}
-			self.set(k, v, { bulk_update: true });
+			self.setAttribute(k, v);
 		});
   },
 	update: function(attributes) {
+    this.resetChangedAttributes();
+    
+    var self = this;
+		$.each(attributes, function(k, v) {
+  		if(v != self.get(k)) {
+  		  self.addChangedAttribute(k);
+  		}
+  	});
+  	
 		this.updateAttributes(attributes);
+		
 		this.notifyUpdated();
 	},
 	notifyUpdated: function() {
@@ -23,15 +41,23 @@ Modelizer.Base = {
 		}
 	},
 	changed: function(attribute) {
-		return this.changed_attributes && $.inArray(attribute, this.changed_attributes) != -1;
+		if(this.changed_attributes && $.inArray(attribute, this.changed_attributes) != -1) {
+		  return true;
+		} else {
+		  return false;
+		}
 	},
-	set: function(key, value, options) {
-	  options = options || {};
+	set: function(key, value) {
+	  this.setAttribute(key, value);
+	  
+    this.resetChangedAttributes();
+    this.addChangedAttribute(key);
+    
+		this.notifyUpdated();
+	},
+	setAttribute: function(key, value) {
 		this.attributes = this.attributes || {};
 		this.attributes[key] = value;
-		if(!options.bulk_update) {
-			this.notifyUpdated();
-		}
 	},
 	get: function(key) {
 		if(this.attributes) {
