@@ -1,7 +1,7 @@
 Modelizer.Associations.BelongsTo = function(klass, association_name) {
   var self = this;
   this.childClass = function() {
-    return window[association_name.camelize()];
+    return window[SimpleInflection.camelize(association_name)];
   };
   
   klass.prototype[association_name] = function() {

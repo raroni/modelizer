@@ -3,12 +3,12 @@ Modelizer.Associations.HasMany = function(klass, association_name, options) {
   options = options || {};
   
   this.childClass = function() {
-    var klass_name = options.class_name || association_name.classify();
+    var klass_name = options.class_name || SimpleInflection.classify(association_name);
     return window[klass_name];
   };
   
   klass.prototype[association_name] = function() {
-    var foreign_key = klass.klass_name.underscore() + '_id';
+    var foreign_key = SimpleInflection.underscore(klass.klass_name) + '_id';
     var options = {}
     options[foreign_key] = this.get('id');
     return self.childClass().where(options);
